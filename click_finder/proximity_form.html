@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+   <!--
+		Designed by Philip Barnes
+		clarencevalleyit.com.au
+		05/11/2012
+    -->
+    <title>DataBackFormServer</title>  
+
+	<link href="../css/databack.css" rel="stylesheet" type="text/css" media="screen" />
+    <style type="text/css">
+	#wrapper{ width: 600px; padding-left: 10px;}
+    <!--
+
+    -->
+    </style>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFgB_ezGiDhyzfozienoYq-Qyu-nF6iWc&sensor=false">
+</script>
+
+<script>
+	var map;
+	var myCenter=new google.maps.LatLng(17.471,105.408);
+
+	var latt = 17.471;
+	var lng =  105.408;
+
+	function initialize()
+		{
+			var mapProp = 
+			{
+				  center:myCenter,
+				  zoom:9,
+				  mapTypeId:google.maps.MapTypeId.ROADMAP
+				  
+			};
+
+			map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+	  
+			var marker;
+			
+			document.getElementById("latt").value = latt;
+			document.getElementById("long").value = lng;
+			
+			function placeMarker(location) 
+				{
+					if ( marker ) 
+					{
+						marker.setPosition(location);
+					} else 
+					{
+						marker = new google.maps.Marker(
+						{
+							position: location,
+							map: map
+						});
+					}
+					var infowindow = new google.maps.InfoWindow(
+					{
+						content: 'Latitude: ' + location.lat() + '<br>Longitude: ' + location.lng()
+					});
+					infowindow.open(map,marker);
+				}
+			google.maps.event.addListener(map, 'click', function(event) 
+				{
+					placeMarker(event.latLng);
+					writeData(event.latLng);
+					var d = new Date();
+					var x = d.getTime();
+					writeTime(x);
+				});
+		}
+
+	function writeData(location)
+		{
+			latt =location.lat();
+			lng = location.lng();
+			document.getElementById("latt").value = latt;
+			document.getElementById("long").value = lng;
+			document.getElementById("getLatt").value = latt;
+			document.getElementById("getLong").value = lng;
+		}
+
+	function writeTime(time)
+		{
+			document.getElementById("time").value = time;
+		}
+
+	google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+</head>
+
+<body>
+
+   <div id = "wrapper">
+   
+		<h1>Data Back Form Server</h1>
+		<h2>Click Location on Map</h2>
+		
+		<?php
+			include("nav.php"); 
+		?>
+		   <!--<img src = "../images/LaoBomb.gif" width="441px"height="331px">-->
+		<div id="googleMap" style="width:580px;height:380px;"></div>
+
+	<form id="login" action = "../click_finder/proximity_find.php" method = "post">
+			<h2>Find missions within 500m radius</h2>
+				<input type = "hidden" name = "latt" id = "latt"  />
+				<input type = "hidden" name = "long" id = "long"  />
+			<br /><br />
+			<div id="button" align="center">
+				<input type = "submit" name = "Submit" value = "Get Data" />
+				<br /><br />
+	</form>
+		<hr />
+			<form id="login" action = "../click_finder/get_locale.php" method = "post">
+			<h2>Go to location</h2>
+				<input type = "hidden" name = "getLatt" id = "getLatt"  />
+				<input type = "hidden" name = "getLong" id = "getLong"  />
+			<br /><br />
+			<div id="button" align="center">
+				<input type = "submit" name = "Submit" value = "Go Local" />
+				<br /><br />
+	</form>
+		<hr />
+			<div id = "footer">
+				Webform designed by Philip Barnes &copy; 
+			</div>
+   </div>
+</body>
+</html>
+

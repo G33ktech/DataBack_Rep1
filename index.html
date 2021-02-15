@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  
+ <!--
+		Designed by Philip Barnes
+		clarencevalleyit.com.au
+		05/11/2012
+    -->
+    <title>DataBackFormServer</title>
+    <style type="text/css">
+    <!--
+
+    -->
+    </style>
+	<link href="css/databack.css" rel="stylesheet" type="text/css" media="screen" />
+</head>
+
+<body>
+   <div id = "wrapper">
+
+         <h1>HTML5 + CSS3 Video Playback</h1>
+         
+         <div style="text-align:center"> 
+  <button onclick="playPause()">Play/Pause</button> 
+  <button onclick="makeBig()">Big</button>
+  <button onclick="makeSmall()">Small</button>
+  <button onclick="makeNormal()">Normal</button>
+<br><br>
+  
+  <!-- 
+  <video id="video1" width="420">
+     <source src="https://www.youtube.com/embed/VHj_6fbsuQk" type="video/mp4">
+    <source src="mov_bbb.ogg" type="video/ogg">
+     <source src="https://youtube/embed/VHj_6fbsuQk" type="video/mp4">
+         Your browser does not support HTML video.
+  </video>
+  <p>Video courtesy of <a href="https://youtu.be/VHj_6fbsuQk" target="_blank">Big Buck Bunny</a>.</p>
+  -->
+
+    
+
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/VHj_6fbsuQk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div> 
+
+<script> 
+var myVideo = document.getElementById("video1"); 
+
+function playPause() { 
+  if (myVideo.paused) 
+    myVideo.play(); 
+  else 
+    myVideo.pause(); 
+} 
+
+function makeBig() { 
+    myVideo.width = 560; 
+} 
+
+function makeSmall() { 
+    myVideo.width = 320; 
+} 
+
+function makeNormal() { 
+    myVideo.width = 420; 
+} 
+</script> 
+
+
+
+
+	<form id="login" action = "../form_server/login.php" method = "post">
+			<table >
+				<caption>Login to Operations Database</caption>				
+				<tr>
+					<td >Operations Base</td>
+					<td><input type = "text" name = "base" id = "base" value = "admin"  /></td>
+				</tr>
+				<tr>
+					<td>Login Name</td>
+					<td><input type = "text" name = "name" id = "name" value = "admin"  /></td>
+				</tr>
+				<tr>
+					<td>Password</td>
+					<td ><input type = "password" name = "password" id = "password" value = "admin"  /></td>
+				</tr>
+				<tr>
+					<td><input type ="reset" value = "Reset Form" /></td>
+					<td><input type = "submit" name = "login" value = "Login to Database" /></td>
+				</tr> 
+			</table>	
+	</form>
+		<hr />
+			<div id = "footer">
+				Webform designed by Philip Barnes &copy; 
+			</div>
+   </div>
+</body>
+</html>
+
